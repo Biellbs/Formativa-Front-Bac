@@ -1,44 +1,56 @@
 <template>
-  <form @submit.prevent="onSubmit" class="flex flex-col gap-4">
-    <input
-      v-model="state.name"
-      placeholder="Digite o nome da máquina"
-      required
-      class="w-full p-4 border-b-1 mb-4 focus:outline-none focus:border-cyan-400"
-    />
+  <form @submit.prevent="onSubmit" class="flex flex-col gap-6">
+    <div>
+      <label for="name" class="block text-gray-300 mb-2 text-sm font-medium">Nome do Equipamento</label>
+      <input
+        id="name"
+        v-model="state.name"
+        placeholder="Digite o nome do equipamento"
+        required
+        class="w-full p-4 bg-slate-700 text-white border border-slate-600 rounded-lg focus:outline-none focus:border-slate-500 focus:ring-2 focus:ring-slate-500 transition-all"
+      />
+    </div>
 
-    <input
-      v-model="state.type"
-      placeholder="Digite o tipo da máquina"
-      required
-      class="w-full p-4 border-b-1 mb-4 focus:outline-none focus:border-cyan-400"
-    />
+    <div>
+      <label for="type" class="block text-gray-300 mb-2 text-sm font-medium">Tipo</label>
+      <input
+        id="type"
+        v-model="state.type"
+        placeholder="Digite o tipo do equipamento"
+        required
+        class="w-full p-4 bg-slate-700 text-white border border-slate-600 rounded-lg focus:outline-none focus:border-slate-500 focus:ring-2 focus:ring-slate-500 transition-all"
+      />
+    </div>
 
-    <select
-      v-model="state.status"
-      required
-      class="w-full p-4 border-b-1 mb-4 focus:outline-none focus:border-cyan-400"
-    >
-      <option value="" disabled>Selecione o Status</option>
-      <option value="Funcionando">Funcionando</option>
-      <option value="Parada">Parada</option>
-      <option value="Em manutenção">Em manutenção</option>
-    </select>
+    <div>
+      <label for="status" class="block text-gray-300 mb-2 text-sm font-medium">Status</label>
+      <select
+        id="status"
+        v-model="state.status"
+        required
+        class="w-full p-4 bg-slate-700 text-white border border-slate-600 rounded-lg focus:outline-none focus:border-slate-500 focus:ring-2 focus:ring-slate-500 transition-all cursor-pointer"
+      >
+        <option value="" disabled>Selecione o status</option>
+        <option value="Funcionando">Funcionando</option>
+        <option value="Parada">Parada</option>
+        <option value="Em manutenção">Em manutenção</option>
+      </select>
+    </div>
 
-    <div class="flex gap-4">
+    <div class="flex gap-4 mt-2">
       <button
         :disabled="submitting"
         type="submit"
-        class="w-[50%] mx-auto my-0 bg-cyan-400 text-white p-4 rounded-lg mb-4 hover:bg-cyan-500 transition cursor-pointer"
+        class="flex-1 bg-gradient-to-r from-slate-700 to-slate-600 text-white p-4 rounded-lg font-bold hover:scale-105 hover:shadow-xl transition-all duration-300 border border-slate-600 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
       >
-        {{ edit ? "Salvar" : "Adicionar" }}
+        {{ edit ? "Salvar Alterações" : "Adicionar Equipamento" }}
       </button>
 
       <button
         v-if="edit"
         type="button"
         @click="$emit('cancel')"
-        class="w-[50%] mx-auto my-0 bg-cyan-400 text-white p-4 rounded-lg mb-4 hover:bg-cyan-500 transition"
+        class="flex-1 bg-slate-700 text-white p-4 rounded-lg font-bold hover:bg-slate-600 transition-all duration-300 border border-slate-600"
       >
         Cancelar
       </button>

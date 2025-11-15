@@ -1,75 +1,43 @@
 <template>
-  <section class="min-h-[calc(100vh-132px)] p-10 flex flex-col max-w-6xl mx-auto">
-    <h2 class="text-3xl font-bold text-gray-400 mb-8">
-      Máquinas ({{ store.totalMaquinas }})
+  <section class="min-h-[calc(100vh-132px)] p-10 flex flex-col w-full bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
+    <div class="max-w-6xl mx-auto w-full">
+    <h2 class="text-3xl font-bold text-white mb-8">
+      Equipamentos ({{ storeEquip.totalMaquinas }})
     </h2>
 
-    <div class="flex flex-col bg-white rounded-2xl shadow-lg p-6 mb-10">
+    <div class="flex flex-col bg-slate-800 rounded-2xl shadow-2xl border border-slate-700 p-6 mb-10">
 
       <MaquinaForm
-        v-if="!editing"
-        :submitting="store.loading"
-        @submit="store.addMaquina"
+        v-if="!editandoEquip"
+        :submitting="storeEquip.loading"
+        @submit="storeEquip.addMaquina"
       />
       
       <MaquinaForm
         v-else
-        :initial="editing"
-        :submitting="store.loading"
-        @submit="(payload) => { store.updateMaquina(editing._id, payload); editing=null; }"
-        @cancel="cancelEditM"
+        :initial="editandoEquip"
+        :submitting="storeEquip.loading"
+        @submit="(payload) => { storeEquip.updateMaquina(editandoEquip._id, payload); editandoEquip=null; }"
+        @cancel="cancelarEdicaoEquip"
         edit
       />
     </div>
 
-    <p v-if="store.error" class="text-red-600 mb-6 text-center font-semibold">
-      {{ store.error }}
+    <p v-if="storeEquip.error" class="text-red-400 mb-6 text-center font-semibold bg-red-900/20 py-3 px-4 rounded-lg border border-red-800">
+      {{ storeEquip.error }}
     </p>
 
-    <div class="bg-white rounded-2xl shadow-lg overflow-x-auto">
+    <div class="bg-slate-800 rounded-2xl shadow-2xl border border-slate-700 overflow-x-auto">
       <MaquinaList
-        :maquina="store.maquinas"
-        @edit="editM"
-        @remove="store.removeMaquina"
+        :maquina="storeEquip.maquinas"
+        @edit="editarEquip"
+        @remove="storeEquip.removeMaquina"
       />
+    </div>
     </div>
   </section>
 
-  <section class="min-h-[calc(100vh-132px)] p-10 flex flex-col max-w-6xl mx-auto">
-    <h2 class="text-3xl font-bold text-gray-400 mb-8">
-      Usuários ({{ store.totalUsuarios }})
-    </h2>
 
-    <div class="flex flex-col bg-white rounded-2xl shadow-lg p-6 mb-10">
-
-      <UsuarioForm
-        v-if="!editing"
-        :submitting="store.loading"
-        @submit="store.addUsuario"
-      />
-      
-      <UsuarioForm
-        v-else
-        :initial="editing"
-        :submitting="store.loading"
-        @submit="(payload) => { store.updateUsuario(editing._id, payload); editing=null; }"
-        @cancel="cancelEditU"
-        edit
-      />
-    </div>
-
-    <p v-if="store.error" class="text-red-600 mb-6 text-center font-semibold">
-      {{ store.error }}
-    </p>
-
-    <div class="bg-white rounded-2xl shadow-lg overflow-x-auto">
-      <UsuarioList
-        :maquina="store.maquinas"
-        @edit="edit"
-        @remove="store.removeMaquina"
-      />
-    </div>
-  </section>
 
 </template>
 
@@ -79,37 +47,24 @@ import { useMaquinaStore } from "../stores/maquina";
 import MaquinaForm from "../components/MaquinaForm.vue";
 import MaquinaList from "../components/MaquinaList.vue";
 import UsuarioForm from "../components/UsuarioForm.vue";
-
-const storeM = useMaquinaStore();
-const editingM = ref(null);
-
-onMounted(() => {
-  storeM.fetchMaquina();
-});
-
-function editM(maquina) {
-  editingM.value = { ...maquina };
-}
-
-function cancelEditM() {
-  editingM.value = null;
-}
+import UsuarioList from "../components/UsuarioList.vue";
+import { useUsuarioStore } from "../stores/usuario";
 
 
-const storeU = useUsuarioStore();
-const editingU = ref(null);
+const storeEquip = useMaquinaStore();
+const editandoEquip = ref(null);
 
 onMounted(() => {
-  storeU.fetchUsuario();
+  storeEquip.fetchMaquina();
 });
 
-function edit(usuario) {
-  editingU.value = { ...usuario };
+function editarEquip(maquina) {
+  editandoEquip.value = { ...maquina };
 }
 
-function cancelEditU() {
-  editingU.value = null;
+function cancelarEdicaoEquip() {
+  editandoEquip.value = null;
 }
+
 
 </script>
-
