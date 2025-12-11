@@ -1,150 +1,192 @@
 <template>
-  <div class="h-[calc(100vh-132px)] w-full bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex justify-center items-center p-8 lg:p-10">
-    <div class="w-full max-w-md bg-slate-800 rounded-2xl shadow-2xl border border-slate-700 p-8">
-      <h1 class="text-3xl font-bold mb-2 text-white text-center">Criar Conta</h1>
-      <p class="text-gray-400 text-center mb-8 text-sm">Cadastre-se na TechFix Solutions</p>
+  <div class="h-[calc(100vh-132px)] w-full bg-gradient-to-br from-orange-50 via-white to-orange-50 flex justify-center items-center p-8 lg:p-10">
+    <div class="w-full max-w-md relative">
+      <div class="absolute inset-0 bg-gradient-to-br from-orange-400/20 to-orange-500/10 rounded-3xl blur-3xl"></div>
       
-      <form @submit.prevent="realizarCadastro">
-        <div class="mb-5">
-          <label for="nomeCompleto" class="block text-gray-300 mb-2 text-sm font-medium">Nome Completo</label>
-          <input
-            type="text"
-            id="nomeCompleto"
-            v-model="nomeCompleto"
-            placeholder="Seu nome completo"
-            class="w-full px-4 py-3 bg-slate-700 text-white border border-slate-600 rounded-lg focus:outline-none focus:border-slate-500 focus:ring-2 focus:ring-slate-500 transition-all"
-          />
+      <div class="relative bg-white rounded-3xl shadow-2xl border-2 border-orange-100 p-10">
+        <div class="text-center mb-8">
+          <h1 class="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-orange-500 mb-2">
+            Criar Conta
+          </h1>
+          <div class="h-1 w-24 bg-orange-400 rounded-full mx-auto"></div>
+          <p class="mt-3 text-gray-600">Preencha os dados abaixo</p>
         </div>
 
-        <div class="mb-5">
-          <label for="emailCadastro" class="block text-gray-300 mb-2 text-sm font-medium">E-mail</label>
-          <input
-            type="email"
-            id="emailCadastro"
-            v-model="emailCadastro"
-            placeholder="seu@email.com"
-            class="w-full px-4 py-3 bg-slate-700 text-white border border-slate-600 rounded-lg focus:outline-none focus:border-slate-500 focus:ring-2 focus:ring-slate-500 transition-all"
-          />
+        <!-- Mensagens de erro -->
+        <div v-if="errorMessage" class="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded-lg text-sm">
+          {{ errorMessage }}
         </div>
 
-        <div class="mb-5">
-          <label for="senhaCadastro" class="block text-gray-300 mb-2 text-sm font-medium">Senha</label>
-          <input
-            type="password"
-            id="senhaCadastro"
-            v-model="senhaCadastro"
-            placeholder="Mínimo 8 caracteres"
-            class="w-full px-4 py-3 bg-slate-700 text-white border border-slate-600 rounded-lg focus:outline-none focus:border-slate-500 focus:ring-2 focus:ring-slate-500 transition-all"
-          />
+        <!-- Mensagem de sucesso -->
+        <div v-if="successMessage" class="mb-4 p-3 bg-green-100 border border-green-400 text-green-700 rounded-lg text-sm">
+          {{ successMessage }}
         </div>
+        
+        <form @submit.prevent="handleSubmit" class="space-y-5">
+          <div class="relative group">
+            <label for="nome" class="block text-gray-700 font-medium mb-2 text-sm">Nome completo</label>
+            <div class="relative">
+              <input
+                v-model="formData.name"
+                type="text"
+                id="nome"
+                placeholder="Seu nome"
+                required
+                class="w-full px-5 py-3 bg-gray-50 border-2 border-gray-200 rounded-xl
+                       focus:outline-none focus:border-orange-400 focus:bg-white
+                       transition-all duration-300 group-hover:border-gray-300"
+              />
+              <div class="absolute inset-x-0 bottom-0 h-0.5 bg-gradient-to-r from-orange-400 to-orange-500 
+                          scale-x-0 group-focus-within:scale-x-100 transition-transform duration-300"></div>
+            </div>
+          </div>
 
-        <div class="mb-6">
-          <label for="confirmarSenha" class="block text-gray-300 mb-2 text-sm font-medium">Confirmar Senha</label>
-          <input
-            type="password"
-            id="confirmarSenha"
-            v-model="confirmarSenha"
-            placeholder="Digite a senha novamente"
-            class="w-full px-4 py-3 bg-slate-700 text-white border border-slate-600 rounded-lg focus:outline-none focus:border-slate-500 focus:ring-2 focus:ring-slate-500 transition-all"
-          />
+          <div class="relative group">
+            <label for="email" class="block text-gray-700 font-medium mb-2 text-sm">Email</label>
+            <div class="relative">
+              <input
+                v-model="formData.email"
+                type="email"
+                id="email"
+                placeholder="seu@email.com"
+                required
+                class="w-full px-5 py-3 bg-gray-50 border-2 border-gray-200 rounded-xl
+                       focus:outline-none focus:border-orange-400 focus:bg-white
+                       transition-all duration-300 group-hover:border-gray-300"
+              />
+              <div class="absolute inset-x-0 bottom-0 h-0.5 bg-gradient-to-r from-orange-400 to-orange-500 
+                          scale-x-0 group-focus-within:scale-x-100 transition-transform duration-300"></div>
+            </div>
+          </div>
+
+          <div class="relative group">
+            <label for="senha" class="block text-gray-700 font-medium mb-2 text-sm">Senha</label>
+            <div class="relative">
+              <input
+                v-model="formData.password"
+                type="password"
+                id="senha"
+                placeholder="••••••••"
+                required
+                minlength="6"
+                class="w-full px-5 py-3 bg-gray-50 border-2 border-gray-200 rounded-xl
+                       focus:outline-none focus:border-orange-400 focus:bg-white
+                       transition-all duration-300 group-hover:border-gray-300"
+              />
+              <div class="absolute inset-x-0 bottom-0 h-0.5 bg-gradient-to-r from-orange-400 to-orange-500 
+                          scale-x-0 group-focus-within:scale-x-100 transition-transform duration-300"></div>
+            </div>
+          </div>
+
+          <div class="relative group">
+            <label for="confirmar-senha" class="block text-gray-700 font-medium mb-2 text-sm">Confirmar senha</label>
+            <div class="relative">
+              <input
+                v-model="confirmPassword"
+                type="password"
+                id="confirmar-senha"
+                placeholder="••••••••"
+                required
+                minlength="6"
+                class="w-full px-5 py-3 bg-gray-50 border-2 border-gray-200 rounded-xl
+                       focus:outline-none focus:border-orange-400 focus:bg-white
+                       transition-all duration-300 group-hover:border-gray-300"
+              />
+              <div class="absolute inset-x-0 bottom-0 h-0.5 bg-gradient-to-r from-orange-400 to-orange-500 
+                          scale-x-0 group-focus-within:scale-x-100 transition-transform duration-300"></div>
+            </div>
+          </div>
+
+          <button
+            type="submit"
+            :disabled="loading"
+            class="group relative w-full py-4 bg-gradient-to-r from-orange-400 to-orange-500 text-white 
+                   rounded-xl font-bold text-lg shadow-lg shadow-orange-400/30 mt-8
+                   hover:shadow-2xl hover:shadow-orange-400/50 hover:scale-105
+                   transition-all duration-300 overflow-hidden disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            <div class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+            <span class="relative flex items-center justify-center gap-2">
+              {{ loading ? 'CADASTRANDO...' : 'CADASTRAR' }}
+              <svg v-if="!loading" class="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </span>
+          </button>
+        </form>
+
+        <div class="mt-8 text-center">
+          <p class="text-gray-600">
+            Já tem uma conta? 
+            <a href="/login" class="text-orange-400 hover:text-orange-500 font-bold hover:underline transition-colors ml-1">
+              Faça login
+            </a>
+          </p>
         </div>
-
-        <button
-          type="submit"
-          class="w-full py-3 bg-gradient-to-r from-slate-700 to-slate-600 text-white rounded-lg font-bold hover:scale-105 hover:shadow-xl transition-all duration-300 border border-slate-600"
-        >
-          CRIAR MINHA CONTA
-        </button>
-      </form>
-
-      <p class="mt-6 text-center text-sm text-gray-400">
-        Já possui uma conta? 
-        <router-link to="/login" class="text-white hover:underline font-semibold ml-1">
-          Fazer login
-        </router-link>
-      </p>
+      </div>
     </div>
   </div>
 </template>
 
-<script>
-import api from '../services/api.js';
+<script setup>
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+import { useUsuariosStore } from '../stores/usuario';
 
-export default {
-  data() {
-    return {
-      nomeCompleto: '',
-      emailCadastro: '',
-      senhaCadastro: '',
-      confirmarSenha: '',
-      carregando: false,
-      erro: null,
-      sucesso: false
-    };
-  },
-  methods: {
-    async realizarCadastro() {
-      // Limpa mensagens anteriores
-      this.erro = null;
-      this.sucesso = false;
+const router = useRouter();
+const usuariosStore = useUsuariosStore();
 
-      // Validações
-      if (!this.nomeCompleto || !this.emailCadastro || !this.senhaCadastro || !this.confirmarSenha) {
-        this.erro = 'Por favor, preencha todos os campos.';
-        return;
-      }
+const formData = ref({
+  name: '',
+  email: '',
+  password: '',
+  role: 'Usuario'
+});
 
-      if (this.senhaCadastro !== this.confirmarSenha) {
-        this.erro = 'As senhas não coincidem!';
-        return;
-      }
+const confirmPassword = ref('');
+const loading = ref(false);
+const errorMessage = ref('');
+const successMessage = ref('');
 
-      if (this.senhaCadastro.length < 8) {
-        this.erro = 'A senha deve ter no mínimo 8 caracteres.';
-        return;
-      }
+async function handleSubmit() {
+  errorMessage.value = '';
+  successMessage.value = '';
 
-      // Envia para o backend
-      this.carregando = true;
-      
-      try {
-        const response = await api.post('/usuarios', {
-          name: this.nomeCompleto,
-          email: this.emailCadastro,
-          password: this.senhaCadastro,
-          role: 'Usuario' // Define como usuário padrão
-        });
-
-        console.log('Usuário criado com sucesso:', response.data);
-        this.sucesso = true;
-
-        // Limpa o formulário
-        this.nomeCompleto = '';
-        this.emailCadastro = '';
-        this.senhaCadastro = '';
-        this.confirmarSenha = '';
-
-        // Redireciona para login após 2 segundos
-        setTimeout(() => {
-          this.$router.push('/login');
-        }, 2000);
-
-      } catch (err) {
-        console.error('Erro ao criar usuário:', err);
-        this.erro = err?.response?.data?.error || 'Erro ao criar conta. Tente novamente.';
-        
-        // Se for erro de email duplicado
-        if (err?.response?.data?.details?.includes('duplicate') || 
-            err?.response?.data?.details?.includes('E11000')) {
-          this.erro = 'Este e-mail já está cadastrado.';
-        }
-      } finally {
-        this.carregando = false;
-      }
-    }
+  // Validação de senhas
+  if (formData.value.password !== confirmPassword.value) {
+    errorMessage.value = 'As senhas não coincidem';
+    return;
   }
-};
-</script>
 
-<style scoped>
-</style>
+  loading.value = true;
+
+  try {
+    // Usa a store para criar usuário (seu backend já criptografa)
+    const result = await usuariosStore.createUsuario(formData.value);
+
+    if (result.success) {
+      successMessage.value = 'Conta criada com sucesso! Redirecionando...';
+      
+      // Limpa o formulário
+      formData.value = {
+        name: '',
+        email: '',
+        password: '',
+        role: 'Usuario'
+      };
+      confirmPassword.value = '';
+      
+      setTimeout(() => {
+        router.push('/login');
+      }, 2000);
+    } else {
+      errorMessage.value = result.error || 'Erro ao criar conta';
+    }
+  } catch (error) {
+    errorMessage.value = 'Erro ao criar conta. Verifique sua conexão.';
+    console.error('Erro no cadastro:', error);
+  } finally {
+    loading.value = false;
+  }
+}
+</script>

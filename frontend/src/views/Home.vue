@@ -1,46 +1,63 @@
 <template>
-  <div class="min-h-[calc(100vh-132px)] flex flex-col justify-between p-10 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
-
-    <div class="container mx-auto bg-slate-800 shadow-2xl rounded-2xl p-8 border border-slate-700">
-      <div class="flex flex-col md:flex-row justify-between items-center gap-4 md:gap-0">
-        <h1 class="text-3xl font-bold text-white text-center md:text-left">
-          Bem-vindo à <span class="text-gray-300">TechFix Solutions</span>
+  <div class="min-h-[calc(100vh-132px)] flex flex-col justify-center items-center p-10 bg-black">
+    <div class="max-w-4xl w-full text-center space-y-8">
+      <!-- Título Principal -->
+      <div class="space-y-4">
+        <h1 class="text-6xl md:text-7xl font-black text-white tracking-tight leading-tight">
+          TechForge Industrial
         </h1>
-        <h2 class="text-2xl font-semibold text-gray-400 text-center md:text-right">
-          Soluções Técnicas Especializadas
-        </h2>
+        <div class="h-1 w-32 bg-white rounded-full mx-auto"></div>
       </div>
-      
-      <div class="mt-6 border-t border-slate-700 pt-6">
-        <p class="text-gray-300 text-center md:text-left leading-relaxed">
-          Referência em serviços técnicos de alta qualidade. Atendemos empresas e indústrias com excelência e compromisso.
-        </p>
-      </div>
-    </div>
 
-    <div class="flex justify-center items-center mt-10">
-      <button
-        class="bg-gradient-to-r from-slate-700 to-slate-600 text-white px-10 py-5 rounded-xl shadow-2xl hover:scale-105 hover:shadow-black border border-slate-600 transition-all duration-300"
-        type="button"
-      >
-        <span class="text-lg font-bold">Solicitar Atendimento</span>
-      </button>
-    </div>
+      <!-- Subtítulo -->
+      <p class="text-2xl md:text-3xl text-gray-400 font-light tracking-wide">
+        Manutenção Industrial de Excelência
+      </p>
 
-    <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
-      <div class="bg-slate-800 p-6 rounded-xl border border-slate-700 text-center hover:scale-105 transition-transform duration-300">
-        <h3 class="text-xl font-bold text-white mb-2">Qualidade</h3>
-        <p class="text-gray-400 text-sm">Serviços certificados e garantidos</p>
+      <!-- Descrição -->
+      <p class="text-lg text-gray-500 max-w-2xl mx-auto leading-relaxed">
+        Soluções completas em manutenção preventiva, corretiva e consultoria técnica 
+        para manter sua operação funcionando com máxima eficiência.
+      </p>
+
+      <!-- Botões de Ação -->
+      <div class="flex flex-col sm:flex-row gap-4 justify-center items-center pt-8">
+        <button
+          class="bg-white text-black px-10 py-4 rounded-xl shadow-2xl
+                 hover:bg-gray-200 hover:scale-105 transition-all duration-300
+                 flex items-center gap-3 font-black text-lg"
+          type="button"
+        >
+          <span>Solicitar Orçamento</span>
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+          </svg>
+        </button>
+
+        <button
+          class="bg-zinc-900 border-2 border-zinc-800 text-white px-10 py-4 rounded-xl
+                 hover:border-white hover:scale-105 transition-all duration-300
+                 flex items-center gap-3 font-semibold text-lg"
+          type="button"
+        >
+          <span>Nossos Serviços</span>
+        </button>
       </div>
-      
-      <div class="bg-slate-800 p-6 rounded-xl border border-slate-700 text-center hover:scale-105 transition-transform duration-300">
-        <h3 class="text-xl font-bold text-white mb-2">Agilidade</h3>
-        <p class="text-gray-400 text-sm">Atendimento rápido e eficiente</p>
-      </div>
-      
-      <div class="bg-slate-800 p-6 rounded-xl border border-slate-700 text-center hover:scale-105 transition-transform duration-300">
-        <h3 class="text-xl font-bold text-white mb-2">Experiência</h3>
-        <p class="text-gray-400 text-sm">Anos de mercado e expertise</p>
+
+      <!-- Stats -->
+      <div class="grid grid-cols-3 gap-8 pt-16 max-w-3xl mx-auto">
+        <div class="space-y-2">
+          <p class="text-4xl font-black text-white">15+</p>
+          <p class="text-sm text-gray-500 uppercase tracking-wide">Anos de Experiência</p>
+        </div>
+        <div class="space-y-2">
+          <p class="text-4xl font-black text-white">500+</p>
+          <p class="text-sm text-gray-500 uppercase tracking-wide">Projetos Concluídos</p>
+        </div>
+        <div class="space-y-2">
+          <p class="text-4xl font-black text-white">98%</p>
+          <p class="text-sm text-gray-500 uppercase tracking-wide">Satisfação</p>
+        </div>
       </div>
     </div>
   </div>
